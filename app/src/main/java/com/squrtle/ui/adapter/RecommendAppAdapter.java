@@ -46,12 +46,12 @@ public class RecommendAppAdapter extends RecyclerView.Adapter<RecommendAppAdapte
 
         Picasso.with(mContext).load(baseImgUrl+appInfo.getIcon()).into(holder.mImgIcon);
         holder.mTextTitle.setText(appInfo.getDisplayName());
-        holder.mTextTitle.setText((appInfo.getApkSize()/1024/1024)+"MB");
+        holder.mTextSize.setText((appInfo.getApkSize()/1024/1024)+"MB");
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mDatas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
