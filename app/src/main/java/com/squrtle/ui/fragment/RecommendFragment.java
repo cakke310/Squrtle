@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.squrtle.R;
+import com.squrtle.di.DaggerRecommendComponent;
+import com.squrtle.di.RecommendModule;
 import com.squrtle.presenter.RecommentPresenter;
 import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.ui.adapter.RecommendAppAdapter;
@@ -23,6 +25,8 @@ import com.squrtle.http.ApiService;
 import com.squrtle.http.HttpManager;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +43,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     RecyclerView mRecycleView;
     private List<AppInfo> datas;
     private RecommendAppAdapter mAdapter;
-    private RecommendContract.Presenter mPresent;
+
+    @Inject
+    RecommendContract.Presenter mPresent;
+
     private ProgressDialog mProgressDialog;
 
     @Nullable
@@ -48,10 +55,20 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View view = inflater.inflate(R.layout.fragment_recomend, container, false);
 
         ButterKnife.bind(this, view);
+        DaggerRecommendComponent.builder().recommendModule(new RecommendModule(this)).build().inject(this);
+
         mProgressDialog = new ProgressDialog(getActivity());
-        mPresent = new RecommentPresenter(this);
+
+
+        //mPresent = new RecommentPresenter(this);
         initData();
         return view;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     private void initData() {
