@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.squrtle.R;
-import com.squrtle.ui.bean.AppInfo;
+import com.squrtle.bean.AppInfo;
 
 import java.util.List;
 

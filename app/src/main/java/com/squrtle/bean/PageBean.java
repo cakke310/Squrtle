@@ -1,4 +1,4 @@
-package com.squrtle.ui.bean;
+package com.squrtle.bean;
 
 import java.util.List;
 

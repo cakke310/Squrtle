@@ -1,7 +1,7 @@
-package com.squrtle.http;
+package com.squrtle.data.http;
 
-import com.squrtle.ui.bean.AppInfo;
-import com.squrtle.ui.bean.PageBean;
+import com.squrtle.bean.AppInfo;
+import com.squrtle.bean.PageBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

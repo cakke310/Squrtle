@@ -2,8 +2,8 @@ package com.squrtle.presenter;
 
 import com.squrtle.data.RecommendModel;
 import com.squrtle.presenter.contract.RecommendContract;
-import com.squrtle.ui.bean.AppInfo;
-import com.squrtle.ui.bean.PageBean;
+import com.squrtle.bean.AppInfo;
+import com.squrtle.bean.PageBean;
 
 import retrofit2.Call;
 import retrofit2.Callback;

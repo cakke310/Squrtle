@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.squrtle.ui.bean.FragmentInfo;
+import com.squrtle.bean.FragmentInfo;
 import com.squrtle.ui.fragment.CategoryFragment;
 import com.squrtle.ui.fragment.GamesFragment;
 import com.squrtle.ui.fragment.RankingFragment;

@@ -1,6 +1,4 @@
-package com.squrtle.ui.bean;
-
-import android.support.v4.app.Fragment;
+package com.squrtle.bean;
 
 /**
  * Created by c_xuwei-010 on 2017/4/5.

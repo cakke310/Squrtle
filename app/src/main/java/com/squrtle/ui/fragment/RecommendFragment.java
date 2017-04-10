@@ -13,16 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squrtle.AppApplication;
 import com.squrtle.R;
-import com.squrtle.di.DaggerRecommendComponent;
-import com.squrtle.di.RecommendModule;
-import com.squrtle.presenter.RecommentPresenter;
+import com.squrtle.di.component.AppComponent;
+import com.squrtle.di.component.DaggerRecommendComponent;
+import com.squrtle.di.module.RecommendModule;
 import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.ui.adapter.RecommendAppAdapter;
-import com.squrtle.ui.bean.AppInfo;
-import com.squrtle.ui.bean.PageBean;
-import com.squrtle.http.ApiService;
-import com.squrtle.http.HttpManager;
+import com.squrtle.bean.AppInfo;
 
 import java.util.List;
 
@@ -30,9 +28,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Ivan on 16/9/26.
@@ -55,7 +50,9 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View view = inflater.inflate(R.layout.fragment_recomend, container, false);
 
         ButterKnife.bind(this, view);
-        DaggerRecommendComponent.builder().recommendModule(new RecommendModule(this)).build().inject(this);
+
+        DaggerRecommendComponent.builder().appComponent(((AppApplication)getActivity().getApplication()).getAppComponent())
+                .recommendModule(new RecommendModule(this)).build().inject(this);
 
         mProgressDialog = new ProgressDialog(getActivity());
 

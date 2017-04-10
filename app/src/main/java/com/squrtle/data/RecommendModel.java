@@ -1,23 +1,24 @@
 package com.squrtle.data;
 
-import com.squrtle.http.ApiService;
-import com.squrtle.http.HttpManager;
-import com.squrtle.ui.bean.AppInfo;
-import com.squrtle.ui.bean.PageBean;
+import com.squrtle.data.http.ApiService;
+import com.squrtle.bean.AppInfo;
+import com.squrtle.bean.PageBean;
 
-import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by c_xuwei-010 on 2017/4/6.
  */
 public class RecommendModel {
 
+    private ApiService mApiService;
+
+    public RecommendModel(ApiService mApiService) {
+        this.mApiService = mApiService;
+    }
+
     public void getApps(Callback<PageBean<AppInfo>> callback){
-        HttpManager manager = new HttpManager();
-        ApiService apiService = manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
-        apiService.getApps("{'page': 0}").enqueue(callback);
+        mApiService.getApps("{'page': 0}").enqueue(callback);
     }
 
 }

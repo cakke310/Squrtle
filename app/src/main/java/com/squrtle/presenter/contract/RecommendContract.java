@@ -1,8 +1,8 @@
 package com.squrtle.presenter.contract;
 
-import com.squrtle.BaseView;
+import com.squrtle.ui.BaseView;
 import com.squrtle.presenter.BasePresenter;
-import com.squrtle.ui.bean.AppInfo;
+import com.squrtle.bean.AppInfo;
 
 import java.util.List;
 

@@ -1,6 +1,7 @@
-package com.squrtle.di;
+package com.squrtle.di.module;
 
 import com.squrtle.data.RecommendModel;
+import com.squrtle.data.http.ApiService;
 import com.squrtle.presenter.RecommentPresenter;
 import com.squrtle.presenter.contract.RecommendContract;
 
@@ -25,8 +26,8 @@ public class RecommendModule {
     }
 
     @Provides
-    public RecommendModel provideModel(){
-        return new RecommendModel();
+    public RecommendModel provideModel(ApiService apiService){
+        return new RecommendModel(apiService);
     }
 
     @Provides
