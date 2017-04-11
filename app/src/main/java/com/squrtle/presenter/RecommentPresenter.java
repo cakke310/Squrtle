@@ -5,6 +5,8 @@ import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -12,17 +14,22 @@ import retrofit2.Response;
 /**
  * Created by c_xuwei-010 on 2017/4/6.
  */
-public class RecommentPresenter implements RecommendContract.Presenter{
-    private RecommendContract.View mView;
-    private RecommendModel mModel;
+public class RecommentPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
-    public RecommentPresenter(RecommendContract.View mView, RecommendModel model) {
-        this.mView = mView;
-        mModel = model;
+    @Inject
+    public RecommentPresenter(RecommendModel mModel, RecommendContract.View mView) {
+        super(mModel, mView);
     }
+//    private RecommendContract.View mView;
+//    private RecommendModel mModel;
+
+//    @Inject
+//    public RecommentPresenter(RecommendContract.View mView, RecommendModel model) {
+//        this.mView = mView;
+//        mModel = model;
+//    }
 
 
-    @Override
     public void requestDatas() {
         mView.showLoading();
 

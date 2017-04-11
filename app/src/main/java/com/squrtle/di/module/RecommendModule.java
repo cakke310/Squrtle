@@ -30,10 +30,10 @@ public class RecommendModule {
         return new RecommendModel(apiService);
     }
 
-    @Provides
-    public RecommendContract.Presenter providePresenter(RecommendContract.View mView, RecommendModel model){
-        return new RecommentPresenter(mView,model);
-    }
+//    @Provides
+//    public RecommendContract.Presenter providePresenter(RecommendContract.View mView, RecommendModel model){
+//        return new RecommentPresenter(mView,model);
+//    }
 
 
 

@@ -18,9 +18,7 @@ public interface RecommendContract {
         void showResult(List<AppInfo> datas);
     }
 
-    interface Presenter extends BasePresenter{
-        public void requestDatas();
-    }
+
 
 
 }
