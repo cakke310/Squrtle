@@ -5,6 +5,7 @@ import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by c_xuwei-010 on 2017/4/6.
@@ -17,8 +18,8 @@ public class RecommendModel {
         this.mApiService = mApiService;
     }
 
-    public void getApps(Callback<PageBean<AppInfo>> callback){
-        mApiService.getApps("{'page': 0}").enqueue(callback);
+    public Observable<PageBean<AppInfo>> getApps(){
+        return mApiService.getApps("{'page': 0}");
     }
 
 }
