@@ -1,5 +1,6 @@
 package com.squrtle.data;
 
+import com.squrtle.bean.BaseBean;
 import com.squrtle.data.http.ApiService;
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
@@ -18,7 +19,7 @@ public class RecommendModel {
         this.mApiService = mApiService;
     }
 
-    public Observable<PageBean<AppInfo>> getApps(){
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps(){
         return mApiService.getApps("{'page': 0}");
     }
 

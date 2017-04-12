@@ -1,5 +1,10 @@
 package com.squrtle.di.module;
 
+import android.app.Application;
+
+import com.google.gson.Gson;
+import com.squrtle.BuildConfig;
+import com.squrtle.common.http.CommonParamsInterceptor;
 import com.squrtle.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -22,17 +27,20 @@ public class HttpModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient(){
+    public OkHttpClient provideOkHttpClient(Application application, Gson gson){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .addInterceptor(new CommonParamsInterceptor(application,gson))
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .build();
     }
+
+
 
     @Provides
     @Singleton

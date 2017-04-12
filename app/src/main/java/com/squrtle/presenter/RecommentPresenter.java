@@ -1,5 +1,7 @@
 package com.squrtle.presenter;
 
+import com.squrtle.bean.BaseBean;
+import com.squrtle.common.rx.RxHttpResponseCompat;
 import com.squrtle.data.RecommendModel;
 import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.bean.AppInfo;
@@ -37,34 +39,23 @@ public class RecommentPresenter extends BasePresenter<RecommendModel,RecommendCo
         mView.showLoading();
 
         mModel.getApps()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(new Subscriber<PageBean<AppInfo>>() {
-            @Override
-            public void onStart() {
-                mView.showLoading();
-            }
+                    @Override
+                    public void onCompleted() {
+                        mView.dismissLoading();
+                    }
 
-            @Override
-            public void onCompleted() {
-                mView.dismissLoading();
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.dismissLoading();
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                mView.dismissLoading();
-            }
-
-            @Override
-            public void onNext(PageBean<AppInfo> response) {
-                if(response!=null){
-                    mView.showResult(response.getDatas());
-                }
-                else {
-                    mView.showNodata();
-                }
-            }
-        });
+                    @Override
+                    public void onNext(PageBean<AppInfo> appInfoPageBean) {
+                        mView.showResult(appInfoPageBean.getDatas());
+                    }
+                });
 
 
 //        mModel.getApps(new Callback<PageBean<AppInfo>>() {
