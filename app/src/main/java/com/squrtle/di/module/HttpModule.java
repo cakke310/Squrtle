@@ -3,8 +3,10 @@ package com.squrtle.di.module;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.squrtle.AppApplication;
 import com.squrtle.BuildConfig;
 import com.squrtle.common.http.CommonParamsInterceptor;
+import com.squrtle.common.rx.RxErrorHandler;
 import com.squrtle.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -58,5 +60,11 @@ public class HttpModule {
     @Singleton
     public ApiService provideApiService(Retrofit retrofit){
         return retrofit.create(ApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RxErrorHandler provideErrorHandler(Application appApplication){
+        return  new RxErrorHandler(appApplication);
     }
 }

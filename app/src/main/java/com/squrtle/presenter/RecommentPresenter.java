@@ -1,11 +1,15 @@
 package com.squrtle.presenter;
 
 import com.squrtle.bean.BaseBean;
+import com.squrtle.common.rx.RxErrorHandler;
 import com.squrtle.common.rx.RxHttpResponseCompat;
+import com.squrtle.common.rx.subscribe.ErrorHandlerSubscriber;
 import com.squrtle.data.RecommendModel;
 import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
+
+import org.xml.sax.ErrorHandler;
 
 import javax.inject.Inject;
 
@@ -21,9 +25,11 @@ import rx.schedulers.Schedulers;
  */
 public class RecommentPresenter extends BasePresenter<RecommendModel,RecommendContract.View> {
 
+    private RxErrorHandler mErrorHandler;
     @Inject
-    public RecommentPresenter(RecommendModel mModel, RecommendContract.View mView) {
+    public RecommentPresenter(RecommendModel mModel, RecommendContract.View mView, RxErrorHandler errorHandler) {
         super(mModel, mView);
+        this.mErrorHandler = errorHandler;
     }
 //    private RecommendContract.View mView;
 //    private RecommendModel mModel;
@@ -40,41 +46,27 @@ public class RecommentPresenter extends BasePresenter<RecommendModel,RecommendCo
 
         mModel.getApps()
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
-                .subscribe(new Subscriber<PageBean<AppInfo>>() {
+                .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mErrorHandler) {
+                    @Override
+                    public void onStart() {
+                        mView.showLoading();
+                    }
+
                     @Override
                     public void onCompleted() {
                         mView.dismissLoading();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        mView.dismissLoading();
-                    }
-
-                    @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
-                        mView.showResult(appInfoPageBean.getDatas());
+                        if(appInfoPageBean!=null){
+                            mView.showResult(appInfoPageBean.getDatas());
+                        } else {
+                            mView.showNodata();
+                        }
                     }
                 });
 
 
-//        mModel.getApps(new Callback<PageBean<AppInfo>>() {
-//            @Override
-//            public void onResponse(Call<PageBean<AppInfo>> call, Response<PageBean<AppInfo>> response) {
-//                if(response!=null){
-//                    mView.showResult(response.body().getDatas());
-//                }
-//                else {
-//                    mView.showNodata();
-//                }
-//                mView.dismissLoading();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PageBean<AppInfo>> call, Throwable t) {
-//                mView.dismissLoading();
-//                mView.showError(t.getMessage());
-//            }
-//        });
     }
 }

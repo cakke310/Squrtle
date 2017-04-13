@@ -1,5 +1,8 @@
 package com.squrtle.di.component;
 
+import android.app.Application;
+
+import com.squrtle.common.rx.RxErrorHandler;
 import com.squrtle.data.http.ApiService;
 import com.squrtle.di.module.AppModule;
 import com.squrtle.di.module.HttpModule;
@@ -16,4 +19,8 @@ import dagger.Component;
 public interface AppComponent {
 
     public ApiService getApiService();
+
+    public Application getApplication();
+
+    public RxErrorHandler getRxErrorHandler();
 }
