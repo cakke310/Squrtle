@@ -4,38 +4,29 @@ package com.squrtle.ui.fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.squrtle.AppApplication;
 import com.squrtle.R;
+import com.squrtle.bean.AppInfo;
 import com.squrtle.di.component.AppComponent;
-import com.squrtle.di.component.DaggerAppComponent;
 import com.squrtle.di.component.DaggerRecommendComponent;
 import com.squrtle.di.module.RecommendModule;
 import com.squrtle.presenter.RecommentPresenter;
 import com.squrtle.presenter.contract.RecommendContract;
 import com.squrtle.ui.adapter.RecommendAppAdapter;
-import com.squrtle.bean.AppInfo;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by Ivan on 16/9/26.
  */
 
-public class RecommendFragment extends BaseFragment<RecommentPresenter> implements RecommendContract.View{
+public class RecommendFragment extends BaseFragment<RecommentPresenter> implements RecommendContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
     private List<AppInfo> datas;
@@ -45,7 +36,6 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
 //    RecommendContract.Presenter mPresent;
 
     private ProgressDialog mProgressDialog;
-
 
 
     @Override
@@ -72,13 +62,12 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
     }
 
 
-
     private void initRecyclerView(List<AppInfo> datas) {
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setItemAnimator(new DefaultItemAnimator());
-        mRecycleView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.HORIZONTAL));
+        mRecycleView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
-        mAdapter = new RecommendAppAdapter(datas,getActivity());
+        mAdapter = new RecommendAppAdapter(datas, getActivity());
         mRecycleView.setAdapter(mAdapter);
     }
 
@@ -105,7 +94,7 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
 
     @Override
     public void dismissLoading() {
-        if(mProgressDialog.isShowing()){
+        if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
