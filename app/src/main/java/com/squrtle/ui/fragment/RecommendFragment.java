@@ -8,15 +8,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.squrtle.R;
 import com.squrtle.bean.AppInfo;
+import com.squrtle.bean.IndexBean;
 import com.squrtle.di.component.AppComponent;
 import com.squrtle.di.component.DaggerRecommendComponent;
 import com.squrtle.di.module.RecommendModule;
 import com.squrtle.presenter.RecommentPresenter;
 import com.squrtle.presenter.contract.RecommendContract;
+import com.squrtle.ui.adapter.IndexMultiAdapter;
 import com.squrtle.ui.adapter.RecommendAppAdapter;
+import com.squrtle.ui.atcitivy.LoginActivity;
 
 import java.util.List;
 
@@ -30,12 +34,11 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
     private List<AppInfo> datas;
-    private RecommendAppAdapter mAdapter;
+    private IndexMultiAdapter mAdapter;
 
 //    @Inject
 //    RecommendContract.Presenter mPresent;
 
-    private ProgressDialog mProgressDialog;
 
 
     @Override
@@ -50,8 +53,8 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
 
     @Override
     public void init() {
-        mProgressDialog = new ProgressDialog(getActivity());
-        mPresenter.requestDatas();
+        initRecyclerView();
+        mPresenter.requestPermission();
     }
 
     @Override
@@ -62,40 +65,36 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
     }
 
 
-    private void initRecyclerView(List<AppInfo> datas) {
+    private void initRecyclerView() {
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycleView.setItemAnimator(new DefaultItemAnimator());
-        mRecycleView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
-        mAdapter = new RecommendAppAdapter(datas, getActivity());
+
+
+    }
+
+
+
+
+
+    @Override
+    public void showResult(IndexBean indexBean) {
+        mAdapter = new IndexMultiAdapter(getActivity());
+        mAdapter.setData(indexBean);
         mRecycleView.setAdapter(mAdapter);
     }
 
     @Override
-    public void showNodata() {
-
+    public void onRequestPermissionSuccess() {
+        mPresenter.requestDatas();
     }
 
     @Override
-    public void showError(String msg) {
+    public void onRequestPermissionError() {
+        Toast.makeText(getActivity(),"用户拒绝授权",Toast.LENGTH_SHORT).show();
 
     }
 
-    @Override
-    public void showResult(List<AppInfo> datas) {
-        initRecyclerView(datas);
-    }
 
-    @Override
-    public void showLoading() {
-        mProgressDialog.show();
 
-    }
-
-    @Override
-    public void dismissLoading() {
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 }

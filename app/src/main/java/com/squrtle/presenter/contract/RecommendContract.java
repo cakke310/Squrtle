@@ -1,5 +1,6 @@
 package com.squrtle.presenter.contract;
 
+import com.squrtle.bean.IndexBean;
 import com.squrtle.ui.BaseView;
 import com.squrtle.presenter.BasePresenter;
 import com.squrtle.bean.AppInfo;
@@ -13,9 +14,10 @@ public interface RecommendContract {
     interface View extends BaseView{
 
 
-        void showNodata();
-        void showError(String msg);
-        void showResult(List<AppInfo> datas);
+        void showResult(IndexBean indexBean);
+
+        void onRequestPermissionSuccess();
+        void onRequestPermissionError();
     }
 
 

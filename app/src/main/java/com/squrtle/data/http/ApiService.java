@@ -2,6 +2,7 @@ package com.squrtle.data.http;
 
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.BaseBean;
+import com.squrtle.bean.IndexBean;
 import com.squrtle.bean.PageBean;
 import com.squrtle.bean.requestbean.LoginRequestBean;
 
@@ -21,6 +22,12 @@ public interface ApiService {
     @GET("featured2")
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParams);
 
+
+    @GET("index")
+    public Observable<BaseBean<IndexBean>> index();
+
+    @GET("")
+    public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);
 
     @POST("login")
     public Observable<BaseBean> login(@Body LoginRequestBean bean);
