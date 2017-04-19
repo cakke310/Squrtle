@@ -8,19 +8,18 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by c_xuwei-010 on 2017/4/6.
+ * Created by c_xuwei-010 on 2017/4/19.
  */
 @Module
-public class RecommendModule {
+public class TopListModule {
+    private AppInfoContract.TopListView mView;
 
-    private AppInfoContract.View mView;
-
-    public RecommendModule(AppInfoContract.View mView) {
+    public TopListModule(AppInfoContract.TopListView mView) {
         this.mView = mView;
     }
 
     @Provides
-    public AppInfoContract.View provideView(){
+    public AppInfoContract.TopListView provideView(){
         return mView;
     }
 
@@ -28,13 +27,4 @@ public class RecommendModule {
     public AppInfoModel provideModel(ApiService apiService){
         return new AppInfoModel(apiService);
     }
-
-//    @Provides
-//    public AppInfoContract.Presenter providePresenter(AppInfoContract.View mView, AppInfoModel model){
-//        return new RecommentPresenter(mView,model);
-//    }
-
-
-
-
 }

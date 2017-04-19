@@ -26,8 +26,8 @@ public interface ApiService {
     @GET("index")
     public Observable<BaseBean<IndexBean>> index();
 
-    @GET("")
-    public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);
+    @GET("toplist")
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);
 
     @POST("login")
     public Observable<BaseBean> login(@Body LoginRequestBean bean);

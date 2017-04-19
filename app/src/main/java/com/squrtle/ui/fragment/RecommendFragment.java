@@ -1,11 +1,9 @@
 package com.squrtle.ui.fragment;
 
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -17,10 +15,8 @@ import com.squrtle.di.component.AppComponent;
 import com.squrtle.di.component.DaggerRecommendComponent;
 import com.squrtle.di.module.RecommendModule;
 import com.squrtle.presenter.RecommentPresenter;
-import com.squrtle.presenter.contract.RecommendContract;
+import com.squrtle.presenter.contract.AppInfoContract;
 import com.squrtle.ui.adapter.IndexMultiAdapter;
-import com.squrtle.ui.adapter.RecommendAppAdapter;
-import com.squrtle.ui.atcitivy.LoginActivity;
 
 import java.util.List;
 
@@ -30,14 +26,14 @@ import butterknife.BindView;
  * Created by Ivan on 16/9/26.
  */
 
-public class RecommendFragment extends BaseFragment<RecommentPresenter> implements RecommendContract.View {
+public class RecommendFragment extends BaseFragment<RecommentPresenter> implements AppInfoContract.View {
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
     private List<AppInfo> datas;
     private IndexMultiAdapter mAdapter;
 
 //    @Inject
-//    RecommendContract.Presenter mPresent;
+//    AppInfoContract.Presenter mPresent;
 
 
 
@@ -48,7 +44,7 @@ public class RecommendFragment extends BaseFragment<RecommentPresenter> implemen
 
     @Override
     public int setLayout() {
-        return R.layout.fragment_recomend;
+        return R.layout.template_recycler_view;
     }
 
     @Override

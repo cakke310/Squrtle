@@ -109,7 +109,7 @@ public class IndexMultiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
         else {
             AppViewHolder appViewHolder = (AppViewHolder) holder;
-            AppInfoAdapter appInfoAdapter = new AppInfoAdapter();
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showBrief(true).build();
             if(appViewHolder.type == TYPE_APPS){
                 appViewHolder.mText.setText("热门应用");
                 appInfoAdapter.addData(indexBean.getRecommendApps());
