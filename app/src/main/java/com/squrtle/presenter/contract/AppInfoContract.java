@@ -21,7 +21,7 @@ public interface AppInfoContract {
         void onRequestPermissionError();
     }
 
-    interface TopListView extends BaseView{
+    interface AppInfoView extends BaseView{
 
         void  showResult(PageBean<AppInfo> page);
 

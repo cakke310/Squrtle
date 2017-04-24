@@ -31,4 +31,8 @@ public class AppInfoModel {
     public Observable<BaseBean<PageBean<AppInfo>>> topList(int page){
         return  mApiService.topList(page);
     }
+
+    public Observable<BaseBean<PageBean<AppInfo>>> games(int page){
+        return  mApiService.games(page);
+    }
 }

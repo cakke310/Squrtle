@@ -1,6 +1,7 @@
 package com.squrtle.presenter;
 
 import com.squrtle.bean.AppInfo;
+import com.squrtle.bean.BaseBean;
 import com.squrtle.bean.PageBean;
 import com.squrtle.common.rx.RxErrorHandler;
 import com.squrtle.common.rx.RxHttpResponseCompat;
@@ -11,21 +12,26 @@ import com.squrtle.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscriber;
 
 /**
  * Created by c_xuwei-010 on 2017/4/19.
  */
-public class TopListPresenter extends BasePresenter<AppInfoModel,AppInfoContract.TopListView> {
+public class AppInfoPresenter extends BasePresenter<AppInfoModel,AppInfoContract.AppInfoView> {
     private RxErrorHandler mErrorHandler;
+
+    public static final int TOP_LIST=1;
+    public static final int GAME=2;
+
     @Inject
-    public TopListPresenter(AppInfoModel mModel, AppInfoContract.TopListView mView, RxErrorHandler errorHandler) {
+    public AppInfoPresenter(AppInfoModel mModel, AppInfoContract.AppInfoView mView, RxErrorHandler errorHandler) {
         super(mModel, mView);
         this.mErrorHandler = errorHandler;
 
     }
 
-    public void getTopListApps(int page){
+    public void requestData(int type, int page){
         Subscriber subscriber =null;
         if(page==0){
             subscriber =  new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext,mErrorHandler) {
@@ -54,10 +60,23 @@ public class TopListPresenter extends BasePresenter<AppInfoModel,AppInfoContract
             };
         }
 
+        Observable observable = getObservable(type,page);
 
 
-        mModel.topList(page)
+
+        observable
                 .compose(RxHttpResponseCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(subscriber);
+    }
+
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page){
+        switch (type){
+            case TOP_LIST:
+                return mModel.topList(page);
+            case GAME:
+                return mModel.games(page);
+            default:
+                return Observable.empty();
+        }
     }
 }
