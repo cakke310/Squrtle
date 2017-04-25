@@ -1,11 +1,14 @@
 package com.squrtle.common.rx.subscribe;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
 import com.squrtle.common.exception.ApiException;
 import com.squrtle.common.exception.BaseException;
 import com.squrtle.common.exception.ErrorMessageFactory;
 import com.squrtle.common.rx.RxErrorHandler;
+import com.squrtle.ui.atcitivy.LoginActivity;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -28,7 +31,21 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T>{
     @Override
     public void onError(Throwable e) {
         BaseException exception = mRxErrorHandler.handleError(e);
+        if(exception==null){
+            Log.e("ErrorHandlerSubscriber", e.getMessage());
+        }
+        else {
+            if(exception.getCode() == BaseException.ERROR_TOKEN){
+                toLogin();
+            }
+        }
 
         mRxErrorHandler.showErrorMessage(exception);
+    }
+
+    private void toLogin() {
+
+        Intent intent = new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(intent);
     }
 }

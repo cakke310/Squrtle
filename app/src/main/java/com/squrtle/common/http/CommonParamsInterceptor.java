@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.squrtle.common.Constant;
+import com.squrtle.common.util.ACache;
 import com.squrtle.common.util.DensityUtil;
 import com.squrtle.common.util.DeviceUtils;
 
@@ -54,6 +55,8 @@ public class CommonParamsInterceptor implements Interceptor {
             commonParamsMap.put(Constant.SDK,DeviceUtils.getBuildVersionSDK()+"");
             commonParamsMap.put(Constant.DENSITY_SCALE_FACTOR,context.getResources().getDisplayMetrics().density+"");
 
+            String token = ACache.get(context).getAsString(Constant.TOKEN);
+            commonParamsMap.put(Constant.TOKEN,token==null?"": token);
 
             if(method.equals("GET")){
                 HttpUrl httpUrl = request.url();
