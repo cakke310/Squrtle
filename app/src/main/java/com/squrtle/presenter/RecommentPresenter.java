@@ -6,6 +6,7 @@ import android.app.Activity;
 import com.squrtle.bean.IndexBean;
 import com.squrtle.common.rx.RxErrorHandler;
 import com.squrtle.common.rx.RxHttpResponseCompat;
+import com.squrtle.common.rx.subscribe.ErrorHandlerSubscriber;
 import com.squrtle.common.rx.subscribe.ProgressDialogSubscriber;
 import com.squrtle.data.AppInfoModel;
 import com.squrtle.presenter.contract.AppInfoContract;
@@ -48,12 +49,20 @@ public class RecommentPresenter extends BasePresenter<AppInfoModel,AppInfoContra
 
 
         mModel.index().compose(RxHttpResponseCompat.<IndexBean>compatResult())
-                .subscribe(new ProgressDialogSubscriber<IndexBean>(mContext,mErrorHandler) {
+                .subscribe(new ErrorHandlerSubscriber<IndexBean>(mContext) {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
                     @Override
                     public void onNext(IndexBean indexBean) {
                         mView.showResult(indexBean);
                     }
                 });
+
+
+
 
 
     }

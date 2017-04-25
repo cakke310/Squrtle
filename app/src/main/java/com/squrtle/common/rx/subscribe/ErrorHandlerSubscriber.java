@@ -1,5 +1,7 @@
 package com.squrtle.common.rx.subscribe;
 
+import android.content.Context;
+
 import com.squrtle.common.exception.ApiException;
 import com.squrtle.common.exception.BaseException;
 import com.squrtle.common.exception.ErrorMessageFactory;
@@ -16,9 +18,11 @@ import retrofit2.adapter.rxjava.HttpException;
 public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T>{
 
     private RxErrorHandler mRxErrorHandler;
+    protected Context mContext;
 
-    public ErrorHandlerSubscriber(RxErrorHandler rxErrorHandler){
-        this.mRxErrorHandler = rxErrorHandler;
+    public ErrorHandlerSubscriber(Context context){
+        this.mContext = context;
+        mRxErrorHandler = new RxErrorHandler(mContext);
     }
 
     @Override

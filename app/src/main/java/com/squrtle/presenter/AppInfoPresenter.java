@@ -34,7 +34,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel,AppInfoContract
     public void requestData(int type, int page){
         Subscriber subscriber =null;
         if(page==0){
-            subscriber =  new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext,mErrorHandler) {
+            subscriber =  new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext) {
                 @Override
                 public void onNext(PageBean<AppInfo> appInfoPageBean) {
                     mView.showResult(appInfoPageBean);
@@ -43,7 +43,7 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel,AppInfoContract
 
         }
         else {
-            subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(mErrorHandler) {
+            subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
                 @Override
                 public void onCompleted() {
                     mView.onLoadMoreComplete();

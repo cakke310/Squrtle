@@ -13,10 +13,11 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
     private Context mContext;
     private ProgressDialog dialog;
 
-    public ProgressDialogSubscriber(Context mContext, RxErrorHandler rxErrorHandler) {
-        super(rxErrorHandler);
-        this.mContext = mContext;
+    public ProgressDialogSubscriber(Context context) {
+        super(context);
+        //this.mContext = context;
     }
+
 
     @Override
     public void onStart() {
@@ -35,16 +36,16 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
     }
 
     private void initProgressDialog(){
-        if(dialog==null){
-            dialog = new ProgressDialog(mContext);
-            dialog.setMessage("loading...");
-        }
+//        if(dialog==null){
+//            dialog = new ProgressDialog(mContext);
+//            dialog.setMessage("loading...");
+//        }
 
     }
 
     private void showProgressDialog(){
         initProgressDialog();
-        dialog.show();
+//        dialog.show();
     }
 
     private void dismisPogressDialog(){
