@@ -2,6 +2,7 @@ package com.squrtle.di.component;
 
 import com.squrtle.di.FragmentScope;
 import com.squrtle.di.module.AppInfoModule;
+import com.squrtle.ui.fragment.CategoryAppFragment;
 import com.squrtle.ui.fragment.GamesFragment;
 import com.squrtle.ui.fragment.TopListFragment;
 
@@ -15,4 +16,5 @@ import dagger.Component;
 public interface AppInfoComponent {
     void injectTopListFragment(TopListFragment fragment);
     void injectGamesFragment(GamesFragment fragment);
+    void injectCagetoryAppFragment(CategoryAppFragment fragment);
 }

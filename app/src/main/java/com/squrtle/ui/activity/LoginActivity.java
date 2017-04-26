@@ -1,10 +1,8 @@
-package com.squrtle.ui.atcitivy;
+package com.squrtle.ui.activity;
 
-import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -20,7 +18,6 @@ import com.squrtle.presenter.contract.LoginContract;
 import com.squrtle.ui.widget.LoadingButton;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
 import rx.functions.Action1;

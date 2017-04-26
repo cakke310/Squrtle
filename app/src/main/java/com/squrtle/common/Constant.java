@@ -12,6 +12,7 @@ package com.squrtle.common;
 
 public class Constant {
 
+    public static  final String BASE_IMG_URL="http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
     public static final String IS_SHOW_GUIDE="is_show_guide";
 
@@ -26,4 +27,6 @@ public class Constant {
     public static final String PARAM ="p" ;
     public static final String TOKEN = "token";
     public static final String USER = "user";
+    public static final String CATEGORY = "category";
+
 }

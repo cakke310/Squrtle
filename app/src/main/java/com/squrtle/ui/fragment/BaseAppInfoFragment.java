@@ -41,7 +41,7 @@ public abstract class BaseAppInfoFragment extends BaseFragment<AppInfoPresenter>
         initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    protected void initRecyclerView(){
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL);
         mRecycleView.addItemDecoration(itemDecoration);

@@ -1,9 +1,8 @@
 package com.squrtle.di.component;
 
-import com.squrtle.data.LoginModel;
 import com.squrtle.di.FragmentScope;
 import com.squrtle.di.module.LoginModule;
-import com.squrtle.ui.atcitivy.LoginActivity;
+import com.squrtle.ui.activity.LoginActivity;
 
 import dagger.Component;
 

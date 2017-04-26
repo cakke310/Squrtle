@@ -4,16 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.squrtle.common.exception.ApiException;
 import com.squrtle.common.exception.BaseException;
-import com.squrtle.common.exception.ErrorMessageFactory;
 import com.squrtle.common.rx.RxErrorHandler;
-import com.squrtle.ui.atcitivy.LoginActivity;
-
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-
-import retrofit2.adapter.rxjava.HttpException;
+import com.squrtle.ui.activity.LoginActivity;
 
 /**
  * Created by c_xuwei-010 on 2017/4/13.

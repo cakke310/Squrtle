@@ -2,15 +2,19 @@ package com.squrtle.data.http;
 
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.BaseBean;
+import com.squrtle.bean.Category;
 import com.squrtle.bean.IndexBean;
 import com.squrtle.bean.LoginBean;
 import com.squrtle.bean.PageBean;
 import com.squrtle.bean.requestbean.LoginRequestBean;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -36,7 +40,17 @@ public interface ApiService {
     @POST("login")
     public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean param);
 
+    @GET("category")
+    Observable<BaseBean<List<Category>>> getCategories();
 
+    @GET("category/featured/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getFeaturedAppsByCategory(@Path("categoryid") int categoryid, @Query("page") int page);
+
+    @GET("category/toplist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getTopListAppsByCategory(@Path("categoryid") int categoryid,@Query("page") int page);
+
+    @GET("category/newlist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(@Path("categoryid") int categoryid,@Query("page") int page);
 
 
 }
