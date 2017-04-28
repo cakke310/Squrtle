@@ -27,6 +27,11 @@ public interface AppInfoContract {
 
         void onLoadMoreComplete();
 
+
+    }
+
+    interface AppDetailView extends BaseView{
+        void showAppDetail(AppInfo appInfo);
     }
 
 

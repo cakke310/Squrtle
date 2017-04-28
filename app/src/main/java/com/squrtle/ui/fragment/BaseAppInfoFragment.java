@@ -1,5 +1,6 @@
 package com.squrtle.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.squrtle.R;
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
 import com.squrtle.di.component.AppComponent;
 import com.squrtle.presenter.AppInfoPresenter;
 import com.squrtle.presenter.contract.AppInfoContract;
+import com.squrtle.ui.activity.AppDetailActivity;
 import com.squrtle.ui.adapter.AppInfoAdapter;
 
 import butterknife.BindView;
@@ -48,6 +51,18 @@ public abstract class BaseAppInfoFragment extends BaseFragment<AppInfoPresenter>
         mAdapter = buildAdapter();
         mAdapter.setOnLoadMoreListener(this);
         mRecycleView.setAdapter(mAdapter);
+        mRecycleView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                AppInfo appInfo = mAdapter.getItem(position);
+
+                mApplication.setView(view);
+                Intent intent = new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra("appinfo",appInfo);
+                startActivity(intent);
+
+            }
+        });
     }
 
     abstract int type();

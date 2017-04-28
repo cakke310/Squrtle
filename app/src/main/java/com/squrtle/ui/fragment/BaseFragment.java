@@ -23,7 +23,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     private Unbinder unbinder;
 
-    private AppApplication mApplication;
+    protected AppApplication mApplication;
     private View rootView;
 
     @Inject

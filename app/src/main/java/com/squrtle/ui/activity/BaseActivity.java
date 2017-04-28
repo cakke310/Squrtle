@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
     private Unbinder unbinder;
-    private AppApplication application;
+    protected AppApplication application;
 
     @Inject
     T mPresenter;

@@ -24,7 +24,7 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
     private Builder builder;
 
     private AppInfoAdapter(Builder builder) {
-        super(R.layout.template_appinfo);
+        super(builder.layoutId);
         this.builder = builder;
     }
 
@@ -35,20 +35,34 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, AppInfo item) {
         ImageLoader.load(baseImgUrl + item.getIcon(), (ImageView) helper.getView(R.id.img_app_icon));
-        helper.setText(R.id.txt_app_name, item.getDisplayName())
-                .setText(R.id.txt_brief, item.getBriefShow());
+        helper.setText(R.id.txt_app_name, item.getDisplayName());
+//                .setText(R.id.txt_brief, item.getBriefShow());
 
         TextView txtViewPosition = helper.getView(R.id.txt_position);
-        txtViewPosition.setVisibility(builder.isShowPosition?View.VISIBLE:View.GONE);
-        txtViewPosition.setText(item.getPosition()+1 +". ");
+        if(txtViewPosition !=null) {
+            txtViewPosition.setVisibility(builder.isShowPosition ? View.VISIBLE : View.GONE);
+            txtViewPosition.setText((item.getPosition() + 1) + " .");
+        }
 
-        TextView txtViewCategory = helper.getView(R.id.txt_category);
-        txtViewCategory.setVisibility(builder.isShowCategoryName?View.VISIBLE:View.GONE);
-        txtViewCategory.setText(item.getLevel1CategoryName());
 
-        TextView txtViewBrief = helper.getView(R.id.txt_brief);
-        txtViewBrief.setVisibility(builder.isShowBrief?View.VISIBLE:View.GONE);
-        txtViewBrief.setText(item.getBriefShow());
+        TextView textViewCategoryName = helper.getView(R.id.txt_category);
+        if(textViewCategoryName !=null) {
+            textViewCategoryName.setVisibility(builder.isShowCategoryName ? View.VISIBLE : View.GONE);
+            textViewCategoryName.setText(item.getLevel1CategoryName());
+        }
+
+        TextView textViewBrief = helper.getView(R.id.txt_brief);
+        if(textViewCategoryName !=null) {
+            textViewBrief.setVisibility(builder.isShowBrief ? View.VISIBLE : View.GONE);
+            textViewBrief.setText(item.getBriefShow());
+        }
+
+
+        TextView textViewSize = helper.getView(R.id.txt_apk_size);
+
+        if(textViewSize !=null){
+            textViewSize.setText((item.getApkSize() / 1014 / 1024) +"Mb");
+        }
 
     }
 
@@ -57,6 +71,8 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+
+        private int layoutId = R.layout.template_appinfo;
 
 
         public Builder showPosition(boolean b) {
@@ -71,6 +87,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
         public Builder showBrief(boolean b) {
             this.isShowBrief = b;
+            return this;
+        }
+
+        public Builder layout(int resId){
+            this.layoutId = resId;
             return this;
         }
 
