@@ -14,7 +14,9 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import javax.inject.Inject;
 
-import rx.functions.Action1;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 
 /**
  * Created by c_xuwei-010 on 2017/4/6.
@@ -29,18 +31,19 @@ public class RecommentPresenter extends BasePresenter<AppInfoModel,AppInfoContra
     }
 
     public void requestPermission(){
-        RxPermissions rxPermissions = new RxPermissions((Activity)mContext);
-        rxPermissions.request(Manifest.permission.READ_PHONE_STATE).subscribe(new Action1<Boolean>() {
-            @Override
-            public void call(Boolean aBoolean) {
-                if(aBoolean){
-                    mView.onRequestPermissionSuccess();
-                }
-                else {
-                    mView.onRequestPermissionError();
-                }
-            }
-        });
+        mView.onRequestPermissionSuccess();
+//        RxPermissions rxPermissions = RxPermissions.getInstance((Activity)mContext);
+//        rxPermissions.request(Manifest.permission.READ_PHONE_STATE).subscribe(new Consumer<Boolean>() {
+//            @Override
+//            public void accept(Boolean aBoolean) {
+//                if(aBoolean){
+//                    mView.onRequestPermissionSuccess();
+//                }
+//                else {
+//                    mView.onRequestPermissionError();
+//                }
+//            }
+//        });
     }
 
 
@@ -50,14 +53,21 @@ public class RecommentPresenter extends BasePresenter<AppInfoModel,AppInfoContra
 
         mModel.index().compose(RxHttpResponseCompat.<IndexBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<IndexBean>(mContext) {
+
+
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
                     public void onNext(IndexBean indexBean) {
                         mView.showResult(indexBean);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
 
