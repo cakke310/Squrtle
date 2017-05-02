@@ -10,13 +10,13 @@ import com.squrtle.bean.requestbean.LoginRequestBean;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by c_xuwei-010 on 2017/4/6.

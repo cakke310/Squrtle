@@ -6,7 +6,8 @@ import com.squrtle.ui.BaseView;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by c_xuwei-010 on 2017/4/26.

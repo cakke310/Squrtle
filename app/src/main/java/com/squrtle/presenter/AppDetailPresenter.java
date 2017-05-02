@@ -8,6 +8,8 @@ import com.squrtle.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by c_xuwei-010 on 2017/4/27.
  */
@@ -21,14 +23,20 @@ public class AppDetailPresenter extends BasePresenter<AppInfoModel,AppInfoContra
     public void getAppDetail(int id){
         mModel.getAppDetail(id).compose(RxHttpResponseCompat.<AppInfo>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<AppInfo>(mContext) {
+
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
                     public void onNext(AppInfo appInfo) {
                         mView.showAppDetail(appInfo);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

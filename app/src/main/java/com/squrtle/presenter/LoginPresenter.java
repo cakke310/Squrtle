@@ -1,8 +1,8 @@
 package com.squrtle.presenter;
 
-import com.hwangjr.rxbus.RxBus;
 import com.squrtle.bean.LoginBean;
 import com.squrtle.common.Constant;
+import com.squrtle.common.rx.RxBus;
 import com.squrtle.common.rx.RxHttpResponseCompat;
 import com.squrtle.common.rx.subscribe.ErrorHandlerSubscriber;
 import com.squrtle.common.util.ACache;
@@ -10,6 +10,8 @@ import com.squrtle.common.util.VerificationUtils;
 import com.squrtle.presenter.contract.LoginContract;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by c_xuwei-010 on 2017/4/24.
@@ -28,8 +30,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,Logi
 
         mModel.login(phone,pwd).compose(RxHttpResponseCompat.<LoginBean>compatResult())
             .subscribe(new ErrorHandlerSubscriber<LoginBean>(mContext) {
+
+
                 @Override
-                public void onCompleted() {
+                public void onSubscribe(Disposable d) {
 
                 }
 
@@ -37,7 +41,14 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel,Logi
                 public void onNext(LoginBean loginBean) {
                     mView.loginSuccess(loginBean);
                     saveUser(loginBean);
-                    RxBus.get().post(loginBean.getUser());
+//                    RxBus.get().post(loginBean.getUser());
+
+                    RxBus.getDefault().post(loginBean.getUser());
+                }
+
+                @Override
+                public void onComplete() {
+
                 }
             });
     }

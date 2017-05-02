@@ -12,8 +12,9 @@ import com.squrtle.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by c_xuwei-010 on 2017/4/19.
@@ -38,21 +39,32 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel,AppInfoContract
     }
 
     public void request(int type, int page,int categoryId, int flagType){
-        Subscriber subscriber =null;
+        Observer subscriber =null;
         if(page==0){
             subscriber =  new ProgressDialogSubscriber<PageBean<AppInfo>>(mContext) {
                 @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
                 public void onNext(PageBean<AppInfo> appInfoPageBean) {
                     mView.showResult(appInfoPageBean);
+                }
+
+                @Override
+                public void onComplete() {
+
                 }
             };
 
         }
         else {
             subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
+
+
                 @Override
-                public void onCompleted() {
-                    mView.onLoadMoreComplete();
+                public void onSubscribe(Disposable d) {
 
                 }
 
@@ -62,11 +74,16 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel,AppInfoContract
 
                 }
 
+                @Override
+                public void onComplete() {
+
+                }
+
 
             };
         }
 
-        Observable observable = getObservable(type,page,categoryId,flagType);
+        Observable observable =  getObservable(type,page,categoryId,flagType);
 
 
 

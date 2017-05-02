@@ -6,7 +6,8 @@ import com.squrtle.bean.requestbean.LoginRequestBean;
 import com.squrtle.data.http.ApiService;
 import com.squrtle.presenter.contract.LoginContract;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by c_xuwei-010 on 2017/4/25.

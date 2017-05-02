@@ -20,16 +20,6 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
 
 
     @Override
-    public void onStart() {
-        showProgressDialog();
-    }
-
-    @Override
-    public void onCompleted() {
-        dismisPogressDialog();
-    }
-
-    @Override
     public void onError(Throwable e) {
         super.onError(e);
         dismisPogressDialog();

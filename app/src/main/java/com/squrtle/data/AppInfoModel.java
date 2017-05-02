@@ -6,8 +6,8 @@ import com.squrtle.data.http.ApiService;
 import com.squrtle.bean.AppInfo;
 import com.squrtle.bean.PageBean;
 
-import retrofit2.Callback;
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by c_xuwei-010 on 2017/4/6.

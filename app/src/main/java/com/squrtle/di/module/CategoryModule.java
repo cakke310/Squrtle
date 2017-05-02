@@ -10,7 +10,6 @@ import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
-import rx.Observable;
 
 /**
  * Created by c_xuwei-010 on 2017/4/26.

@@ -16,19 +16,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 import com.squrtle.R;
 import com.squrtle.bean.User;
 import com.squrtle.common.Constant;
 import com.squrtle.common.font.Cniao5Font;
+import com.squrtle.common.rx.RxBus;
 import com.squrtle.common.util.ACache;
 import com.squrtle.di.component.AppComponent;
 import com.squrtle.ui.adapter.ViewPagerAdapter;
 
 import butterknife.BindView;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -65,7 +65,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        RxBus.get().register(this);
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(@io.reactivex.annotations.NonNull User user) throws Exception {
+                initUserHeaderView(user);
+            }
+        });
         initDrawLayout();
         initTabLayout();
         initUser();
@@ -155,10 +160,6 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Subscribe
-    public void getUser(User user){
-        initUserHeaderView(user);
-    }
 
     private void initUserHeaderView(User user){
         mTextUserName.setText(user.getUsername());
@@ -167,6 +168,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.get().unregister(this);
+//        RxBus.get().unregister(this);
     }
 }

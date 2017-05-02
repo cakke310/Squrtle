@@ -10,7 +10,8 @@ import com.squrtle.common.exception.ErrorMessageFactory;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
-import retrofit2.adapter.rxjava.HttpException;
+import retrofit2.HttpException;
+
 
 /**
  * Created by c_xuwei-010 on 2017/4/13.

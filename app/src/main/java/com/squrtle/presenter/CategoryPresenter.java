@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * Created by c_xuwei-010 on 2017/4/26.
  */
@@ -22,14 +24,21 @@ public class CategoryPresenter extends BasePresenter<CategoryContract.ICategoryM
     public void getAllCategory(){
         mModel.getCategories().compose(RxHttpResponseCompat.<List<Category>>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<List<Category>>(mContext) {
+
+
                     @Override
-                    public void onCompleted() {
+                    public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
                     public void onNext(List<Category> categories) {
                         mView.showData(categories);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }
